@@ -123,14 +123,15 @@ table tr th :last-child, table tr td :last-child {
 hr {
   margin-bottom: 30px;
   border: 40px;
-  border-top: 3px solid #ccc; }
+  border-top: 3px solid #ccc; 
+}
 
 .hrthin {
   margin-bottom: 30px;
   border: 40px;
   border-top: 2px dotted #ccc; }
 
-.hrcontent {
+.hrverythin {
   margin-bottom: auto;
   margin-top: auto;
   border: 40px;
