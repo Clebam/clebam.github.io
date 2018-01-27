@@ -35,32 +35,49 @@ layout: default
         <article itemscope itemtype="http://schema.org/BlogPosting">
         {{content}}
         </article>
-        <hr>
+        <hr>  
 
         {% assign hasSimilar = '' %}
+        {% assign hasSeries = '' %}
+        {% assign postHasSeries = false %}
         {% for post in site.related_posts %}
-            {% assign postHasSimilar = false %}
-            {% for tag in post.tags %}
-                {% for thisTag in page.tags %}
-                    {% if postHasSimilar == false and hasSimilar.size < 6 and post != page and tag == thisTag %}
-                        {% if hasSimilar.size == 0 %}
-                        <h2 id="similar_posts">Similar Posts</h2>
-                        <ul>
-                        {% endif %}
-                        <li class="relatedPost">
-                            <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}
-                            {% if post.series %}
-                                <!-- (Series: {{ post.series }}) -->
-                            {% endif %}
-                            </a>
-                        </li>
-                        {% capture hasSimilar %}{{ hasSimilar }}*{% endcapture %}
-                        {% assign postHasSimilar = true %}
+            {% if post.series == page.series %}
+                {% assign postHasSeries = true %}
+                <h2 id="series_posts">{{post.series}} Series</h2>
+                {% assign count = '0' %}
+                {% for post in site.posts reversed %}
+                {% if post.series == page.series %}
+                    {% capture count %}{{ count | plus: '1' }}{% endcapture %}
+                    <li>Part {{ count }} - 
+                    {% if page.url == post.url %}
+                        This Article
+                    {% else %}
+                        <a href="{{post.url}}">{{post.title}}</a>
                     {% endif %}
+                    </li>
+                {% endif %}
                 {% endfor %}
-            {% endfor %}
+            {% else %}
+                {% assign postHasSimilar = false %}
+                {% for tag in post.tags %}
+                    {% for thisTag in page.tags %}
+                        {% if postHasSimilar == false and hasSimilar.size < 6 and post != page and tag == thisTag %}
+                            {% if hasSimilar.size == 0 %}
+                            <h2 id="similar_posts">Similar Posts</h2>
+                            <ul>
+                            {% endif %}
+                            <li class="relatedPost">
+                                <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}
+                                </a>
+                            </li>
+                            {% capture hasSimilar %}{{ hasSimilar }}*{% endcapture %}
+                            {% assign postHasSimilar = true %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
         {% endfor %}
-        {% if hasSimilar.size > 0 %}
+        {% if hasSimilar.size > 0  or postHasSeries %}
             </ul>
             <hr class="hrthin">           
         {% endif %}
@@ -79,7 +96,12 @@ layout: default
                 <div>
                     Content
                 </div>
+                
                 <ul id="content-side" class="content-ul">
+                    <hr class=hrcontent>
+                    {% if postHasSeries %}
+                    <li><a href="#series_posts">{{page.series}} Series</a></li>
+                    {% endif %}
                     {% if hasSimilar.size > 0 %}
                     <li><a href="#similar_posts">Similar Posts</a></li>
                     {% endif %}
