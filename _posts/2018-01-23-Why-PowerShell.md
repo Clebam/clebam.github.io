@@ -45,7 +45,7 @@ One last thing, is that PowerShell is pretty much self-documented and there is a
 Get-Help -Name Get-ChildItem # Returns a Comment Base Help about a given cmdlet
 Get-Command # Lists the available commands
 $MyFile = Get-ChildItem -Path C:\Temp\MyFile.txt
-$MyFile | Get-Member # Lists al the properties and method of a given object
+$MyFile | Get-Member # Lists all the properties and method of a given object
 ```
 ### You can start today
 I recommand you to give a try with PowerShell right now. Today is the good day. Go to your Windows start menu, search for **PowerShell ISE** and try a `Get-ChildItem`. Press F5 and your PowerShell journey begins...
