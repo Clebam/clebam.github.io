@@ -65,11 +65,12 @@ pre {
 /**
  * Clearfix
  */
+ /*
 .wrapper:after {
   content: "";
   display: table;
   clear: both; }
-
+*/
 /**
  * Icons
  */
@@ -158,9 +159,9 @@ cite {
   margin-bottom: 0;
   text-align: center;
   color: #828282; }
-
+/*
 .site-nav {
-  /*float: right;*/
+  /*float: right;
   line-height: 56px;
   border-top: 1px solid #e8e8e8;
   border-bottom: 1px solid #e8e8e8; }
@@ -201,7 +202,7 @@ cite {
       .site-nav .page-link {
         display: block;
         padding: 5px 10px; } }
-
+*/
 /**
  * Sidebar
  */
