@@ -2,7 +2,7 @@
 layout: post
 title:  "Why PowerShell ?"
 categories: PowerShell
-tags:  beginner
+tags:  
 author: Clebam
 ---
 * content

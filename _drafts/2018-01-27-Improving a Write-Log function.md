@@ -2,7 +2,7 @@
 layout: post
 title:  "Improving a Write-Log function"
 categories: PowerShell
-tags:  beginner function
+tags: function
 author: Clebam
 series: Write-Log
 ---
