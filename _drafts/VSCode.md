@@ -24,4 +24,98 @@ You may have been using ISE for a while and switching to VSCode is not really in
 
 ## Configuring VSCode
 
+_Let's give some credit to [Mike F. Robbins tutorial](http://mikefrobbins.com/2017/08/24/how-to-install-visual-studio-code-and-configure-it-as-a-replacement-for-the-powershell-ise/){:target="_blank"} which I used when trying to set up VSCode a while ago._
 
+_By the way, I am assuming that you are on a Windows Environment._
+
+#### Installating VSCode
+
+* Go to [https://code.visualstudio.com/](https://code.visualstudio.com/){:target="_blank"} and download the lastest stable build.
+* Lauch the installer and leave everything default. Be sure to select these:
+
+    ![VSCode Setup](/img/posts/VSCode/Setup - Visual Studio Code.png){:width="480"}
+    
+    _It will allow you to Right Click a file and open it with VSCode. I suggest not to register VSCode as default editor of compatible files though, it might be annoying._
+
+* VSCode is now installed.
+
+#### Configuring VSCode for PowerShell
+
+* First of all, you have to download the PowerShell extension.
+    * Go the the extension tab `CTRL + SHIFT + X'
+    * Search for PowerShell and click `Install` then `Reload`
+    * The PowerShell extension is now installed. VSCode integrates a PowerShell console also.
+* Similarly, you can add icons to make it more friendly
+    * Search for VS-Icons extension and install it.
+* Update your user settings preference. _It could also be Workspace settings or Folder settings_
+    * Hit `F1` and search for _settings_
+
+        ![User Settings](/img/posts/VSCode/VSCode - User Settings.png){:width="480"}
+    * Add (or Update) the following settings
+```json
+{
+    "workbench.iconTheme": "vscode-icons",
+    "files.defaultLanguage": "powershell",
+    "editor.formatOnType": true,
+    "editor.formatOnPaste": true,
+    "powershell.integratedConsole.focusConsoleOnExecute": false,
+    "window.zoomLevel": 0,
+    "editor.mouseWheelZoom": true
+}  
+```
+        _Thanks to these settings, you will have nice icons and the_ `New File` _is set as .ps1_
+
+#### Working with snippets
+* **Use existing snippets**
+
+    The PowerShell extension provides many snippets. The snippets become available as soon as your are working on a PowerShell file.  
+    Just type the snippet name and press tab.
+
+    ![Snippet](/img/posts/VSCode/snippet example.gif){:width="360"}
+
+    You can find the existing snippet by pressing `F1` and search for _Insert Snippet_. You will have a list of the available snippets, corresponding to the language of the active file.
+
+* **Create custom snippets**
+
+    You can also add your own custom snippets. First, press `F1` and search for _snippet_ then _Open User Snippets_ then _PowerShell_. You will enter the powershell.json file, which provides an example on how to create a snippet.
+
+    There is a tool that I like, even if it is not perfect : [https://pawelgrzybek.com/snippet-generator/](https://pawelgrzybek.com/snippet-generator/){:target="_blank"}  
+    It doesn't handle every aspect of PowerShell language, like escaping _$_ character, but it gives a good start to create your snippet. Just paste your PowerShell code and complete the Description and Prefix.  
+    I like to use `&` before my prefix because it won't collide with existing snippets and I can get all my snippets by writing `&` then `CTRL + Space`. Of course, this is a matter of personal taste.  
+    You can also use `CTRL + I` on snippet generator website to add placeholders, which will allow you to tab from on placeholder to another. (See gif below)
+
+    Then paste it to your powershell.json file. Make sure to put a comma `,` between each snippet. For PowerShell, you will need to replace "_$_" by "_\\\\$_". Most of the time, it doesn't require more tweaking.
+
+    Here is a snippet I made to get the process output, based on an example found on [StackOverFlow](https://stackoverflow.com/a/8762068/8334558){:target="_blank"}.
+
+    ```
+        "Creates a process with output": {
+        "prefix": "&processOutput",
+        "body": [
+            "\\$ProcessInfo = New-Object System.Diagnostics.ProcessStartInfo",
+            "\\$ProcessInfo.FileName = \"${1:ping.exe}\"",
+            "\\$ProcessInfo.RedirectStandardError = \\$true",
+            "\\$ProcessInfo.RedirectStandardOutput = \\$true",
+            "\\$ProcessInfo.UseShellExecute = \\$false",
+            "\\$ProcessInfo.Arguments = \"${2:localhost}\"",
+            "\\$Process = New-Object System.Diagnostics.Process",
+            "\\$Process.StartInfo = \\$pinfo",
+            "\\$Process.Start() | Out-Null",
+            "\\$Process.WaitForExit()",
+            "\\$StdOut = \\$Process.StandardOutput.ReadToEnd()",
+            "\\$StrErr = \\$Process.StandardError.ReadToEnd()",
+            "",
+            "# Exit Code",
+            "\\$Process.ExitCode"
+        ],
+        "description": "Creates a process with output"
+        }
+    ```
+    And here is the result :  
+    ![Custom Snippet](/img/posts/VSCode/custom snippet.gif){:width="480"}
+
+## Shoud you drop ISE forever ?
+
+I would say no, or rather not yet. I don't know if it is a matter of habit, but I often use PowerShell ISE when I want to try a short piece of code. Also, depending on you habits, you may need to tweak a lot VSCode at first to find your keyboard shortcuts back for instance.
+
+But on the long run, let's be honest, PowerShell ISE will be abandonned and VSCode will be more and more PowerShell friendly and updated. It is the official editor of PowerShell Core and as a good PowerShell scripter, I think it's time to switch.

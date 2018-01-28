@@ -41,7 +41,7 @@ layout: default
         {% assign hasSeries = '' %}
         {% assign postHasSeries = false %}
         {% for post in site.related_posts %}
-            {% if post.series == page.series %}
+            {% if post.series == page.series and page.series %}
                 {% assign postHasSeries = true %}
                 <h2 id="series_posts">{{post.series}} Series</h2>
                 {% assign count = '0' %}
