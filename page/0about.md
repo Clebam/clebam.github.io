@@ -24,7 +24,7 @@ I really fancy living in Britanny, with our crepes and cider, our salted butter,
 I enjoy hiking in this region, we have Saint-Malo, Mont Saint-Michel (Normandy inhabitants are going to kill me!), Broceliande Forest and the Enchanter Merlin, beaches...
 
 I can spend hours playing video games too, my preference going to Nintendo games (Zelda, Mario) and JRPGs (Final Fantasy, Xenoblade, etc...)
-I also try to play the piano. I wish I were good, and wish even more I spend as much time praticing piano as playing videogames... But let's be honest, I am not tha good.
+I also try to play the piano. I wish I were good, and wish even more I spend as much time praticing piano as playing videogames... But let's be honest, I am not that good.
 
 ## Why Powershell ?
 
