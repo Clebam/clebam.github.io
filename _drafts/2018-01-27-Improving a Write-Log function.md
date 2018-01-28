@@ -10,8 +10,10 @@ series: Write-Log
 {:toc}
 
 <!-- A short phrase of preview with a short text -->
-#### _Preview_ 
-![Image](/img/xxx.xxx){:width="360"} <!--Standard width: 300px-->
+#### _More efficient, more secure, more practical_
+
+In the second part of this Write-Log Series, we are going to work with some advanced parameter and take advantage of snippets to use more efficiently this function.
+
 
 <!--End_Preview-->
 

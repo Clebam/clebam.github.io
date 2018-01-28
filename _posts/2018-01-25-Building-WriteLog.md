@@ -9,7 +9,7 @@ series: Write-Log
 * content
 {:toc}
 
-#### _Logging your scripts easily_ 
+### _Logging your scripts easily_ 
 
 When a sysadmin creates scripts, he sometimes need to know what happened during the execution of the latter. A common way to do so is to log the actions perfomed by the script. Here is a sample of a Write-Log function usage. We will see how to build this Write-Log function. Sample below :
 
