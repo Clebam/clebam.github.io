@@ -16,7 +16,8 @@
             <a href="https://www.facebook.com/{{site.facebook_username}}" title="Facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i></a> {% endif %}  {% if site.linkedIn_username %}
             <a href="https://www.linkedin.com/in/{{site.linkedIn_username}}" title="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a> {% endif %} {% if site.dribbble_username %}
             <a href=" https://dribbble.com/{{site.dribbble_username}}" title="Dribbble"><i class="fa fa-dribbble" aria-hidden="true"></i></a> {% endif %}{% if site.reddit_username %}
-            <a href=" https://www.reddit.com/user/{{site.reddit_username}}" title="Reddit"><i class="fa fa-reddit" aria-hidden="true"></i></a> {% endif %}
+            <a href=" https://www.reddit.com/user/{{site.reddit_username}}" title="Reddit"><i class="fa fa-reddit" aria-hidden="true"></i></a> {% endif %}{% if site.rss_feed %}
+            <a href=" {{ site.url }}/{{site.rss_feed}}" title="RSS"> - RSS : <i class="fa fa-rss" aria-hidden="true"></i></a>{% endif %}
         </p>
         <p class="power">
             <span>
