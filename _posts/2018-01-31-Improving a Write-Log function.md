@@ -228,8 +228,8 @@ function Write-Log {
         $StartText += "$("#" * 50)"
         $StartText += "# Running script : $($MyInvocation.ScriptName)"
         $StartText += "# Start time : $(Get-Date)"  
-        $StartText += "# Executing account : TestComputer01\TaskAdmin"
-        $StartText += "# ComputerName : TestComputer01"
+        $StartText += "# Executing account : $([Security.Principal.WindowsIdentity]::GetCurrent().Name)"
+        $StartText += "# ComputerName : $env:COMPUTERNAME"
         $StartText += "$("#" * 50)"
         $StartText | Out-File -FilePath $FilePath -Append
     }
