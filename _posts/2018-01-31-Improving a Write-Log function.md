@@ -172,13 +172,13 @@ In my opinion, the `Write-Log` function is one of the cmdlets we are going to us
 Here is the VSCode snippet code :
 
 ```
-"Call the Write-Log function": {
+"Write-Log function": {
 	"prefix": "&wr",
 	"body": [
 		"Write-Log -FilePath ${1:\\$LogFile} -Message \"$2\"$3"
 	],
-	"description": "Creates a process with output"
-}
+	"description": "A call of the Write-Log function"
+},
 ```
 The downside is that you should always ensure that the path to the log file is stored in a `$LogFile` variable. But this makes sense, so it's just a rule to apply. Just in case, I placed a placeholder on this parameter to set it.  
 The second placeholder is used to type the actual message string.  
