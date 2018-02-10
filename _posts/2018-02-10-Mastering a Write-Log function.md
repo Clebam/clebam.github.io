@@ -510,7 +510,7 @@ function Write-Log {
     }
 }
 ```
-
+<script src="https://gist.github.com/Clebam/04c104337854a7be6b2368253e559e38.js"></script>
 ## What's up for the next part ?
 In the next and, I think, last part, we will create a `Backup-Log` function.
 
