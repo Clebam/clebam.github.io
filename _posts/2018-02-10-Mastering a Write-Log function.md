@@ -393,124 +393,12 @@ So you can rely on mutex to perfom parallel jobs.
 
 ## The full functions
 
-#### Initialize-Log
-```powershell
-function Initialize-Log {
-    [CmdletBinding(DefaultParameterSetName = "FilePath")]
-    Param
-    ( 
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = "FilePath")]
-        [ValidateNotNullOrEmpty()]
-        [string]$FilePath,
+Since there were some feedbacks, I decided to move the code to GIST and to update it with new ideas.
 
-        [Parameter(ParameterSetName = "FilePath")]
-        [switch]$Clear,
+So it may slightly differ from the post.
 
-        [Parameter(ParameterSetName = "FilePath")]
-        [switch]$IncludeHeader,
-
-        [Parameter(ParameterSetName = "FilePath")]
-        [switch]$Passthru,
-        
-        [Parameter(ParameterSetName = "FilePath")]
-        [ValidateNotNullOrEmpty()]
-        [string]$NewMutex,
-
-        [Parameter(Mandatory = $true, ParameterSetName = "CloseMutex")]
-        [ValidateNotNullOrEmpty()]    
-        [string]$CloseMutex
-    )
-    if ($PSCmdlet.ParameterSetName -eq "FilePath") {
-        if (-not(Test-Path -Path $FilePath)) {
-            New-Item -Path $FilePath -Force | Out-Null
-        }
-
-        if ($Clear) {
-            Clear-Content -Path $FilePath
-        }
-        if ($IncludeHeader) {
-            [string[]]$Header = @()
-            $Header += "$("#" * 50)"
-            $Header += "# Running script : $($MyInvocation.ScriptName)"
-            $Header += "# Start time : $(Get-Date)"  
-            $Header += "# Executing account : $([Security.Principal.WindowsIdentity]::GetCurrent().Name)"
-            $Header += "# ComputerName : $env:COMPUTERNAME"            
-            $Header += "$("#" * 50)"
-            $Header | Out-File -FilePath $FilePath -Append
-        } 
-        
-        if ($NewMutex) {
-            If ( -not ([System.Threading.Mutex]::TryOpenExisting($NewMutex, [ref]$null))) {
-                $Mutex = New-Object System.Threading.Mutex($false, $NewMutex)
-                $Mutex.WaitOne() | Out-Null
-                $Mutex.ReleaseMutex()
-            }    
-        }
-
-        if ($Passthru) {
-            Write-Output $FilePath
-        }      
-    }
-    else {
-        if ($CloseMutex) {
-            $Mutex = New-Object System.Threading.Mutex($false, $NewMutex)
-            $Mutex.WaitOne() | Out-Null
-            $Mutex.ReleaseMutex()
-            $Mutex.Close()
-            $Mutex.Dispose()
-        }
-    }     
-}
-```
-
-#### Write-Log
-```powershell
-function Write-Log {
-    [CmdletBinding()]
-    Param
-    (       
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
-        [ValidateScript( {
-                if (-not (Test-Path $_)) {
-                    throw "The file $_ does not exist. Use Initialize-Log to create it." 
-                } 
-                $true
-            })]
-        [string]$FilePath,
-       
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
-        [string]$Message,
-
-        [ValidateSet("Info", "Warning", "Error")]
-        $Level = "Info",
-
-        [string]$MutexName
-    )
-    Begin {
-        if ($MutexName) {
-            $Mutex = New-Object System.Threading.Mutex($false, $MutexName)
-            $Mutex.WaitOne() | Out-Null
-        }
-    }
-    Process {
-        $FormattedDate = Get-Date -Format "[yyyy-MM-dd][HH:mm:ss]"
-        $OutString = "$FormattedDate - $Level - $Message"
-        $OutString | Out-File -FilePath $FilePath -Append
-        switch ($Level) {
-            "Info" { Write-Host $OutString; break }
-            "Warning" { Write-Host $OutString -ForegroundColor Yellow; break }
-            "Error" { Write-Host $OutString -ForegroundColor Red; break }
-            Default { Write-Host $OutString; break }
-        }       
-    }
-    End {
-        if ($MutexName) {
-            $Mutex.ReleaseMutex() | Out-Null
-        }
-    }
-}
-```
 <script src="https://gist.github.com/Clebam/04c104337854a7be6b2368253e559e38.js"></script>
+
 ## What's up for the next part ?
 In the next and, I think, last part, we will create a `Backup-Log` function.
 
