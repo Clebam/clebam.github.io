@@ -16,7 +16,7 @@ When a sysadmin creates scripts, he sometimes need to know what happened during 
 ```powershell
 $LogFile = "C:\Logs\Scripts.log"
 $MyDir = Get-ChildItem -Path "C:\" -Directory
-Write-Log -Path $LogFile -Message "There are $($MyFiles.Count) directories in C:\"
+Write-Log -Path $LogFile -Message "There are $($MyDir.Count) directories in C:\"
 if (Test-Connection -ComputerName "MyServer" -Quiet -Count 1) {
     Write-Log -Path $LogFile -Message "MyServer responded."
 }
